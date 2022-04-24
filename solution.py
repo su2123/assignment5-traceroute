@@ -130,6 +130,8 @@ def get_route(hostname):
                     tracelist1.append(f"{rtt}")
                     tracelist1.append(f"{addr[0]}")
                     tracelist1.append(f"{hostname}")
+                    tracelist2.append(tracelist1)
+                    return tracelist2
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
                     #Fill in start
@@ -146,6 +148,8 @@ def get_route(hostname):
                     tracelist1.append(f"{ttl}")
                     tracelist1.append(f"{rtt}")
                     tracelist1.append(f"{addr[0]}")
+                    tracelist2.append(tracelist1)
+                    return tracelist2
                     #Fill in start
                     #You should add your responses to your lists here
                     #Fill in end
@@ -156,6 +160,8 @@ def get_route(hostname):
                     tracelist1.append(f"{ttl}")
                     tracelist1.append(f"{rtt}")
                     tracelist1.append(f"{addr[0]}")
+                    tracelist2.append(tracelist1)
+                    return tracelist2
                     #Fill in start
                     #You should add your responses to your lists here 
                     #Fill in end
@@ -166,6 +172,9 @@ def get_route(hostname):
                     tracelist1.append(f"{ttl}")
                     tracelist1.append(f"{rtt}")
                     tracelist1.append(f"{addr[0]}")
+                    tracelist2.append(tracelist1)
+                    return tracelist2
+
                     #Fill in start
                     #You should add your responses to your lists here and return your list if your destination IP is met
                     #Fill in end
@@ -173,7 +182,8 @@ def get_route(hostname):
                     #Fill in start
                     exc_type, value, traceback = sys.exc_info()
                     assert exc_type.__name__ == 'NameError'
-                    # print(f"Failed with exception {exc_type.__name__}")
+                    tracelist2.append(f"Failed with exception {exc_type.__name__}")
+                    return tracelist2
                     #If there is an exception/error to your if statements, you should append that to your list here
                     #Fill in end
                 break
