@@ -47,7 +47,7 @@ def build_packet():
     # Append checksum to the header.
     myChecksum = 0
     ID = os.getpid() & 0xFFFF 
-    header = struct.pack("bbHHh", 8, 0, myChecksum, ID, 1)
+    header = struct.pack("bbHHh", ICMP_ECHO_REQUEST, 0, myChecksum, ID, 1)
     data = struct.pack("d", time.time())
 
     myChecksum = checksum(header + data)
@@ -60,7 +60,7 @@ def build_packet():
     else:
         myChecksum = htons(myChecksum)
 
-    header = struct.pack("bbHHh", 8, 0, myChecksum, ID, 1)
+    header = struct.pack("bbHHh", ICMP_ECHO_REQUEST, 0, myChecksum, ID, 1)
 
     # Don’t send the packet yet , just return the final packet in this function.
     #Fill in end
@@ -119,8 +119,7 @@ def get_route(hostname):
                 #Fill in start
                 #Fetch the icmp type from the IP packet
                 t= time.time()
-                recPacket, addr = mySocket.recvfrom(1024)
-                icmpHeader = recPacket[20:28]
+                icmpHeader = recvPacket[20:28]
                 rtt = (t - time.time() )
                 types, code, checksum, packetID, sequence = struct.unpack(b"bbHHh", icmpHeader)
                 #Fill in end
@@ -129,14 +128,14 @@ def get_route(hostname):
 
                     tracelist1.append(f"{ttl}")
                     tracelist1.append(f"{rtt}")
-                    tracelist1.append(f"{addr}")
+                    tracelist1.append(f"{addr[0]}")
                     tracelist1.append(f"{hostname}")
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
                     #Fill in start
                     tracelist1.append(f"{ttl}")
                     tracelist1.append(f"{rtt}")
-                    tracelist1.append(f"{addr}")
+                    tracelist1.append(f"{addr[0]}")
                     tracelist1.append("hostname not returnable")
                     #Fill in end
 
@@ -144,6 +143,9 @@ def get_route(hostname):
                     bytes = struct.calcsize("d")
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
                     rtt = timeReceived - timeSent
+                    tracelist1.append(f"{ttl}")
+                    tracelist1.append(f"{rtt}")
+                    tracelist1.append(f"{addr[0]}")
                     #Fill in start
                     #You should add your responses to your lists here
                     #Fill in end
@@ -151,6 +153,9 @@ def get_route(hostname):
                     bytes = struct.calcsize("d")
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
                     rtt = timeReceived - timeSent
+                    tracelist1.append(f"{ttl}")
+                    tracelist1.append(f"{rtt}")
+                    tracelist1.append(f"{addr[0]}")
                     #Fill in start
                     #You should add your responses to your lists here 
                     #Fill in end
@@ -158,6 +163,9 @@ def get_route(hostname):
                     bytes = struct.calcsize("d")
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
                     rtt = timeReceived - timeSent
+                    tracelist1.append(f"{ttl}")
+                    tracelist1.append(f"{rtt}")
+                    tracelist1.append(f"{addr[0]}")
                     #Fill in start
                     #You should add your responses to your lists here and return your list if your destination IP is met
                     #Fill in end
@@ -173,4 +181,4 @@ def get_route(hostname):
                 mySocket.close()
 
 if __name__ == '__main__':
-    get_route("google.ca")
+    get_route("yahoo.com")
