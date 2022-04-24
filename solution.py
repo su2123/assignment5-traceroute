@@ -127,19 +127,13 @@ def get_route(hostname):
                 try: #try to fetch the hostname
                     #Fill in start
 
-                    tracelist1.append(f"{ttl}")
-                    tracelist1.append(f"{rtt}")
-                    tracelist1.append(f"{addr[0]}")
-                    tracelist1.append(f"{hostname}")
-                    tracelist2.append(tracelist1)
+                    host_name = gethostbyaddr(addr[0])
+
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
                     #Fill in start
-                    tracelist1.append(f"{ttl}")
-                    tracelist1.append(f"{rtt}")
-                    tracelist1.append(f"{addr[0]}")
-                    tracelist1.append("hostname not returnable")
-                    tracelist2.append(tracelist1)
+                    
+                    host_name = "hostname not returnable"
                     #Fill in end
 
                 if types == 11:
@@ -149,6 +143,7 @@ def get_route(hostname):
                     tracelist1.append(f"{ttl}")
                     tracelist1.append(f"{rtt}")
                     tracelist1.append(f"{addr[0]}")
+                    tracelist1.append(f"{host_name}")
                     tracelist2.append(tracelist1)
                     #Fill in start
                     #You should add your responses to your lists here
@@ -160,6 +155,7 @@ def get_route(hostname):
                     tracelist1.append(f"{ttl}")
                     tracelist1.append(f"{rtt}")
                     tracelist1.append(f"{addr[0]}")
+                    tracelist1.append(f"{host_name}")
                     tracelist2.append(tracelist1)
                     #Fill in start
                     #You should add your responses to your lists here 
@@ -171,6 +167,7 @@ def get_route(hostname):
                     tracelist1.append(f"{ttl}")
                     tracelist1.append(f"{rtt}")
                     tracelist1.append(f"{addr[0]}")
+                    tracelist1.append(f"{host_name}")
                     tracelist2.append(tracelist1)
 
                     #Fill in start
@@ -190,4 +187,4 @@ def get_route(hostname):
     return tracelist2
 
 if __name__ == '__main__':
-    print(get_route("yahoo.com"))
+    get_route("yahoo.com")
