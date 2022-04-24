@@ -76,6 +76,7 @@ def get_route(hostname):
     tracelist2 = [] #This is your list to contain all traces
 
     for ttl in range(1,MAX_HOPS):
+        tracelist1 = []
         for tries in range(TRIES):
             destAddr = gethostbyname(hostname)
 
@@ -131,7 +132,6 @@ def get_route(hostname):
                     tracelist1.append(f"{addr[0]}")
                     tracelist1.append(f"{hostname}")
                     tracelist2.append(tracelist1)
-                    return tracelist2
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
                     #Fill in start
@@ -139,6 +139,7 @@ def get_route(hostname):
                     tracelist1.append(f"{rtt}")
                     tracelist1.append(f"{addr[0]}")
                     tracelist1.append("hostname not returnable")
+                    tracelist2.append(tracelist1)
                     #Fill in end
 
                 if types == 11:
@@ -149,7 +150,6 @@ def get_route(hostname):
                     tracelist1.append(f"{rtt}")
                     tracelist1.append(f"{addr[0]}")
                     tracelist2.append(tracelist1)
-                    return tracelist2
                     #Fill in start
                     #You should add your responses to your lists here
                     #Fill in end
@@ -161,7 +161,6 @@ def get_route(hostname):
                     tracelist1.append(f"{rtt}")
                     tracelist1.append(f"{addr[0]}")
                     tracelist2.append(tracelist1)
-                    return tracelist2
                     #Fill in start
                     #You should add your responses to your lists here 
                     #Fill in end
@@ -173,7 +172,6 @@ def get_route(hostname):
                     tracelist1.append(f"{rtt}")
                     tracelist1.append(f"{addr[0]}")
                     tracelist2.append(tracelist1)
-                    return tracelist2
 
                     #Fill in start
                     #You should add your responses to your lists here and return your list if your destination IP is met
@@ -183,12 +181,13 @@ def get_route(hostname):
                     exc_type, value, traceback = sys.exc_info()
                     assert exc_type.__name__ == 'NameError'
                     tracelist2.append(f"Failed with exception {exc_type.__name__}")
-                    return tracelist2
+                    
                     #If there is an exception/error to your if statements, you should append that to your list here
                     #Fill in end
                 break
             finally:
                 mySocket.close()
+    return tracelist2
 
 if __name__ == '__main__':
-    get_route("yahoo.com")
+    print(get_route("yahoo.com"))
